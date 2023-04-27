@@ -2,7 +2,7 @@
   <x:Members>
     <x:Property Name="strDocPath" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>680,6079.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>694,3826</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -54,6 +54,8 @@
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>UiPath.Platform.ResourceHandling</x:String>
       <x:String>UiPath.IntelligentOCR.Activities.ValidationStation</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -135,6 +137,7 @@
       <AssemblyReference>System.IO.Packaging</AssemblyReference>
       <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
       <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <sap:WorkflowViewStateService.ViewState>
@@ -143,13 +146,13 @@
       <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence sap:VirtualizedContainerService.HintSize="690,6014.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_22">
+  <Sequence sap:VirtualizedContainerService.HintSize="766,7538" sap2010:WorkflowViewState.IdRef="Sequence_22">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Document Understanding" sap:VirtualizedContainerService.HintSize="648,5927.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence DisplayName="Document Understanding" sap:VirtualizedContainerService.HintSize="724,7450.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <Sequence.Variables>
         <Variable x:TypeArguments="p8:DocumentTaxonomy" Name="taxonomy" />
         <Variable x:TypeArguments="x:String" Name="strDocText" />
@@ -163,19 +166,60 @@
         <Variable x:TypeArguments="si:FileInfo" Name="fileInfo" />
         <Variable x:TypeArguments="x:Boolean" Name="fileExist" />
         <Variable x:TypeArguments="si:DirectoryInfo" Name="folderInfo" />
-        <Variable x:TypeArguments="x:Int32" Name="numFichier">
-          <Variable.Default>
-            <Literal x:TypeArguments="x:Int32" Value="1" />
-          </Variable.Default>
-        </Variable>
+        <Variable x:TypeArguments="x:Int32" Name="numFichier" />
+        <Variable x:TypeArguments="sd2:DataTable" Name="dtErrorFile" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Début du traitement des fichiers&quot;]" />
-      <p:LoadTaxonomy sap2010:Annotation.AnnotationText="Chargement des taxonomies créés correspondantes à la structure des données qu'on souhaite extraire" DisplayName="1 - Load Taxonomy" sap:VirtualizedContainerService.HintSize="586,148.66666666666666" sap2010:WorkflowViewState.IdRef="LoadTaxonomy_2" Taxonomy="[taxonomy]">
+      <ui:BuildDataTable DataTable="[dtErrorFile]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="662,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Fichiers_x0020_Inconnus&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:CloseApplication DisplayName="Close All Excel App" sap:VirtualizedContainerService.HintSize="662,107.33333333333333" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+        <ui:CloseApplication.Target>
+          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7d4d7e15-c407-4054-89a5-e1bcfad3a23b" InformativeScreenshot="b6c5b3f3c8563888953faddf28495b97" Selector="&lt;wnd app='excel.exe' /&gt;">
+            <ui:Target.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:Target.TimeoutMS>
+            <ui:Target.WaitForReady>
+              <InArgument x:TypeArguments="ui:WaitForReady" />
+            </ui:Target.WaitForReady>
+          </ui:Target>
+        </ui:CloseApplication.Target>
+      </ui:CloseApplication>
+      <ui:FileExistsX sap2010:Annotation.AnnotationText="On vérifie l'existance du fichier de résultat" DisplayName="File Exists" Exists="[fileExist]" sap:VirtualizedContainerService.HintSize="662,99.33333333333333" sap2010:WorkflowViewState.IdRef="FileExistsX_2" Path="Output.xlsx">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:FileExistsX>
+      <If sap2010:Annotation.AnnotationText="Si il existe on le supprime (phase d'initialisation)" Condition="[fileExist]" sap:VirtualizedContainerService.HintSize="662,352" sap2010:WorkflowViewState.IdRef="If_6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Sequence sap:VirtualizedContainerService.HintSize="376,169.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_32">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:DeleteFileX DisplayName="Delete File" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="DeleteFileX_1" Path="Output.xlsx" />
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_33" />
+        </If.Else>
+      </If>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="662,96" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Début du traitement des fichiers&quot;]" />
+      <p:LoadTaxonomy sap2010:Annotation.AnnotationText="Chargement des taxonomies créés correspondantes à la structure des données qu'on souhaite extraire" DisplayName="1 - Load Taxonomy" sap:VirtualizedContainerService.HintSize="662,148.66666666666666" sap2010:WorkflowViewState.IdRef="LoadTaxonomy_2" Taxonomy="[taxonomy]">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -184,9 +228,9 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </p:LoadTaxonomy>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Taxonomies chargées&quot;]" />
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Nombre de fichiers à traiter : &quot; + Directory.GetFiles(strDocPath).Count.ToString]" />
-      <ui:ForEachFileX sap2010:Annotation.AnnotationText="Traitement de tout les fichiers pdf contenu dans le répertoire renseigné" DisplayName="For Each File in Folder" Folder="[strDocPath]" sap:VirtualizedContainerService.HintSize="586,4338" sap2010:WorkflowViewState.IdRef="ForEachFileX_1" IncludeSubDirectories="False" OrderBy="NameAscFirst" SkipFolderWithoutPermission="False">
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="662,96" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Taxonomies chargées&quot;]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="662,96" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Nombre de fichiers à traiter : &quot; + Directory.GetFiles(strDocPath).Count.ToString]" />
+      <ui:ForEachFileX sap2010:Annotation.AnnotationText="Traitement de tout les fichiers pdf contenu dans le répertoire renseigné" DisplayName="For Each File in Folder" Folder="[strDocPath]" sap:VirtualizedContainerService.HintSize="662,4950.666666666667" sap2010:WorkflowViewState.IdRef="ForEachFileX_1" IncludeSubDirectories="False" OrderBy="NameAscFirst" SkipFolderWithoutPermission="False">
         <ui:ForEachFileX.Body>
           <ActivityAction x:TypeArguments="si:FileInfo, x:Int32">
             <ActivityAction.Argument1>
@@ -195,7 +239,7 @@
             <ActivityAction.Argument2>
               <DelegateInArgument x:TypeArguments="x:Int32" Name="CurrentIndex" />
             </ActivityAction.Argument2>
-            <Sequence sap:VirtualizedContainerService.HintSize="552,4045.3333333333335" sap2010:WorkflowViewState.IdRef="Sequence_13">
+            <Sequence sap:VirtualizedContainerService.HintSize="628,4658" sap2010:WorkflowViewState.IdRef="Sequence_13">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:String" Name="strOP" />
                 <Variable x:TypeArguments="x:Boolean" Name="typeExist" />
@@ -205,8 +249,9 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Fichier &quot; + numFichier.ToString + &quot; : &quot;]" />
-              <p:DigitizeDocument sap2010:Annotation.AnnotationText="Digitalisation du document courant. Si il s'agit d'une image, l'OCR sera utilisé, sinon il sera omis pour un pdf. Ici en l'occurence le module d'OCR n'est pas utilisé" ApplyOcrMigrated="True" ApplyOcrOnPdf="Auto" DegreeOfParallelism="-1" DetectCheckboxes="True" DisplayName="2 - Digitize Document" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" ForceApplyOCR="False" sap:VirtualizedContainerService.HintSize="510,369.3333333333333" sap2010:WorkflowViewState.IdRef="DigitizeDocument_4">
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot; &quot;]" />
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Fichier &quot; + (numFichier+1).ToString + &quot; : &quot;]" />
+              <p:DigitizeDocument sap2010:Annotation.AnnotationText="Digitalisation du document courant. Si il s'agit d'une image, l'OCR sera utilisé, sinon il sera omis pour un pdf. Ici en l'occurence le module d'OCR n'est pas utilisé" ApplyOcrMigrated="True" ApplyOcrOnPdf="Auto" DegreeOfParallelism="-1" DetectCheckboxes="True" DisplayName="2 - Digitize Document" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" ForceApplyOCR="False" sap:VirtualizedContainerService.HintSize="586,369.3333333333333" sap2010:WorkflowViewState.IdRef="DigitizeDocument_4">
                 <p:DigitizeDocument.OCREngine>
                   <ActivityFunc x:TypeArguments="sd:Image, x:String, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
                     <ActivityFunc.Argument1>
@@ -226,8 +271,8 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </p:DigitizeDocument>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Digitalisation fichier&quot;]" />
-              <p2:ClassifyDocumentScope sap2010:Annotation.AnnotationText="Classification du document courant à l'aide du module Keyword Based Classifier. &#xA;Ainsi, chaque document peut bénéficier d'un traitement particulier en fonction de l'info à extraire" ClassificationResults="[classificationResults]" DisplayName="3 - Classify Document Scope" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" sap:VirtualizedContainerService.HintSize="510,512" sap2010:WorkflowViewState.IdRef="ClassifyDocumentScope_2" Taxonomy="[taxonomy]" TaxonomyConfiguration="{}{&quot;TaxonomyMappings&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:{&quot;DocumentTypeMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;:{&quot;OriginalDocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;,&quot;ClassifierDocumentTypeId&quot;:null,&quot;IsDocumentTypeIdMapped&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;:{&quot;OriginalDocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;,&quot;ClassifierDocumentTypeId&quot;:null,&quot;IsDocumentTypeIdMapped&quot;:true}}}},&quot;ClassifierMinimumConfidence&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:&quot;0&quot;},&quot;DocumentTypesByPersistenceId&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:[]}}">
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Digitalisation fichier&quot;]" />
+              <p2:ClassifyDocumentScope sap2010:Annotation.AnnotationText="Classification du document courant à l'aide du module Keyword Based Classifier. &#xA;Ainsi, chaque document peut bénéficier d'un traitement particulier en fonction de l'info à extraire" ClassificationResults="[classificationResults]" DisplayName="3 - Classify Document Scope" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" sap:VirtualizedContainerService.HintSize="586,512" sap2010:WorkflowViewState.IdRef="ClassifyDocumentScope_2" Taxonomy="[taxonomy]" TaxonomyConfiguration="{}{&quot;TaxonomyMappings&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:{&quot;DocumentTypeMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;:{&quot;OriginalDocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;,&quot;ClassifierDocumentTypeId&quot;:null,&quot;IsDocumentTypeIdMapped&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;:{&quot;OriginalDocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;,&quot;ClassifierDocumentTypeId&quot;:null,&quot;IsDocumentTypeIdMapped&quot;:true}}}},&quot;ClassifierMinimumConfidence&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:&quot;0&quot;},&quot;DocumentTypesByPersistenceId&quot;:{&quot;UIf7dfb4df3b524af0be866d61d8bfc73a&quot;:[]}}">
                 <p2:ClassifyDocumentScope.Classifiers>
                   <p2:KeywordBasedClassifier HumanValidatedData="{x:Null}" LearningData="{x:Null}" DisplayName="Keyword Based Classifier" sap:VirtualizedContainerService.HintSize="234,116" sap2010:WorkflowViewState.IdRef="KeywordBasedClassifier_2" LearningFilePath="DocumentProcessing\Keywords.json" PersistenceId="UIf7dfb4df3b524af0be866d61d8bfc73a">
                     <p2:KeywordBasedClassifier.ClassifierResult>
@@ -282,212 +327,248 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </p2:ClassifyDocumentScope>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Classification fichier&quot;]" />
-              <Assign sap2010:Annotation.AnnotationText="Enregistrement du type de document" DisplayName="3.1 - Getting the document Type" sap:VirtualizedContainerService.HintSize="510,116" sap2010:WorkflowViewState.IdRef="Assign_2">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:String">[strDocType]</OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:String">[classificationResults(0).DocumentTypeId.Split(".").Last]</InArgument>
-                </Assign.Value>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </Assign>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Récupération du type de document&quot;]" />
-              <p5:DataExtractionScope DocumentTypeId="{x:Null}" sap2010:Annotation.AnnotationText="Extraction des données en se basant sur la taxonomie et le module d'extraction (ici un Form Extraction)" ClassificationResult="[classificationResults(0)]" DisplayName="4 - Data Extraction Scope" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" ExtractionResult="[extractionResults]" FormatValuesIfPossible="True" sap:VirtualizedContainerService.HintSize="510,148.66666666666666" sap2010:WorkflowViewState.IdRef="DataExtractionScope_2" Taxonomy="[taxonomy]" TaxonomyConfiguration="{}{&quot;TaxonomyMappings&quot;:{&quot;UIf6be7d14856343f3be017072f2930458&quot;:{&quot;DocumentTypeMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;:{&quot;FieldMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Jour&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Jour&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true}},&quot;ExtractorDocumentTypeId&quot;:null},&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;:{&quot;FieldMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true}},&quot;ExtractorDocumentTypeId&quot;:null}}}},&quot;ExtractorMinimumConfidence&quot;:{&quot;UIf6be7d14856343f3be017072f2930458&quot;:&quot;0&quot;},&quot;ExtractorsAliases&quot;:{},&quot;DocumentTypeOptionsByExtractor&quot;:{}}">
-                <p5:DataExtractionScope.Extractors>
-                  <p5:FormExtractor SerializedSignatureFields="{x:Null}" ApiKey="+Llg9ZV3ter+dqJ60Igil2bXorirr6E8++TuPR3dyGuPqhtRW7NDzmRe3d5n+nOZm24cbmqUJ7xclom7fsTrww==" DisplayName="Form Extractor" Endpoint="https://du.uipath.com/svc/formextractor" sap:VirtualizedContainerService.HintSize="234,166" sap2010:WorkflowViewState.IdRef="FormExtractor_2" MinOverlapPercentage="65" PersistenceId="UIf6be7d14856343f3be017072f2930458" SerializedSettings="{}{}" SerializedTemplates="[{&quot;DocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;,&quot;FormId&quot;:&quot;1b19fc04&quot;,&quot;FormName&quot;:&quot;domaliance&quot;,&quot;OriginalFileExtension&quot;:&quot;pdf&quot;,&quot;Pages&quot;:[{&quot;Page&quot;:0,&quot;Size&quot;:[0.0,0.0,595.0,841.0],&quot;SkewAngle&quot;:0.0,&quot;Evidence&quot;:[{&quot;Text&quot;:&quot;INTERVENTION&quot;,&quot;Box&quot;:[77.99,299.45,126.11,20.04]},{&quot;Text&quot;:&quot;TELEGESTION&quot;,&quot;Box&quot;:[77.99,430.15,111.78,20.04]},{&quot;Text&quot;:&quot;DomAliance&quot;,&quot;Box&quot;:[52.47,36.36,70.5,14.04]},{&quot;Text&quot;:&quot;Cergy&quot;,&quot;Box&quot;:[52.47,110.02,32.68,14.04]},{&quot;Text&quot;:&quot;CERGY&quot;,&quot;Box&quot;:[97.55,58.56,21.82,8.04]}],&quot;Fields&quot;:[],&quot;Tables&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;,&quot;Headers&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]}],&quot;Cells&quot;:[{&quot;Row&quot;:0,&quot;Column&quot;:0,&quot;Box&quot;:[283.2658,117.83,60.0,36.0]},{&quot;Row&quot;:0,&quot;Column&quot;:1,&quot;Box&quot;:[283.2658,269.83,46.0,36.0]},{&quot;Row&quot;:0,&quot;Column&quot;:2,&quot;Box&quot;:[283.2658,315.83,46.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:0,&quot;Box&quot;:[319.2658,117.83,60.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:1,&quot;Box&quot;:[319.2658,269.83,46.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:2,&quot;Box&quot;:[319.2658,315.83,46.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:0,&quot;Box&quot;:[355.2658,117.83,60.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:1,&quot;Box&quot;:[355.2658,269.83,46.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:2,&quot;Box&quot;:[355.2658,315.83,46.0,36.0]},{&quot;Row&quot;:3,&quot;Column&quot;:0,&quot;Box&quot;:[391.2658,117.83,60.0,29.0]},{&quot;Row&quot;:3,&quot;Column&quot;:1,&quot;Box&quot;:[391.2658,269.83,46.0,29.0]},{&quot;Row&quot;:3,&quot;Column&quot;:2,&quot;Box&quot;:[391.2658,315.83,46.0,29.0]}]}]}],&quot;AnchorBasedConfiguration&quot;:{&quot;AnchorBasedFieldConfiguration&quot;:[]}},{&quot;DocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;,&quot;FormId&quot;:&quot;5f515c03&quot;,&quot;FormName&quot;:&quot;domatel&quot;,&quot;OriginalFileExtension&quot;:&quot;pdf&quot;,&quot;Pages&quot;:[{&quot;Page&quot;:0,&quot;Size&quot;:[0.0,0.0,842.0,595.0],&quot;SkewAngle&quot;:0.0,&quot;Evidence&quot;:[{&quot;Text&quot;:&quot;Etat&quot;,&quot;Box&quot;:[20.98,30.0,21.35,13.87]},{&quot;Text&quot;:&quot;liste&quot;,&quot;Box&quot;:[20.98,54.68,21.34,13.87]},{&quot;Text&quot;:&quot;des&quot;,&quot;Box&quot;:[20.98,79.36,19.34,13.87]},{&quot;Text&quot;:&quot;intervenants&quot;,&quot;Box&quot;:[20.98,102.04,65.36,13.87]},{&quot;Text&quot;:&quot;par&quot;,&quot;Box&quot;:[20.98,170.74,17.34,13.87]},{&quot;Text&quot;:&quot;bénéficiaire&quot;,&quot;Box&quot;:[20.98,191.41,61.36,13.87]},{&quot;Text&quot;:&quot;CCAS&quot;,&quot;Box&quot;:[42.97,59.0,33.34,13.87]},{&quot;Text&quot;:&quot;de&quot;,&quot;Box&quot;:[42.97,95.67,13.34,13.87]},{&quot;Text&quot;:&quot;la&quot;,&quot;Box&quot;:[42.97,112.35,9.34,13.87]},{&quot;Text&quot;:&quot;ville&quot;,&quot;Box&quot;:[42.97,125.02,20.66,13.87]},{&quot;Text&quot;:&quot;de&quot;,&quot;Box&quot;:[42.97,149.02,13.34,13.87]},{&quot;Text&quot;:&quot;Paris&quot;,&quot;Box&quot;:[42.97,165.7,27.34,13.87]},{&quot;Text&quot;:&quot;5&quot;,&quot;Box&quot;:[60.97,60.0,5.56,11.56]},{&quot;Text&quot;:&quot;boulevard&quot;,&quot;Box&quot;:[60.97,68.34,43.91,11.56]},{&quot;Text&quot;:&quot;Diderot&quot;,&quot;Box&quot;:[60.97,115.03,32.23,11.56]},{&quot;Text&quot;:&quot;Secteur&quot;,&quot;Box&quot;:[166.74,620.0,31.01,10.4]},{&quot;Text&quot;:&quot;Nord-Est&quot;,&quot;Box&quot;:[166.74,658.52,35.51,10.4]},{&quot;Text&quot;:&quot;CAUTO&quot;,&quot;Box&quot;:[522.98,30.0,28.0,9.25]},{&quot;Text&quot;:&quot;UNONREC&quot;,&quot;Box&quot;:[534.98,30.0,40.44,9.25]},{&quot;Text&quot;:&quot;APPFIN&quot;,&quot;Box&quot;:[522.98,350.0,28.9,9.25]},{&quot;Text&quot;:&quot;ERRIND&quot;,&quot;Box&quot;:[534.98,350.0,30.66,9.25]},{&quot;Text&quot;:&quot;DMINI&quot;,&quot;Box&quot;:[546.98,30.0,22.66,9.25]},{&quot;Text&quot;:&quot;ERR&quot;,&quot;Box&quot;:[546.98,350.0,16.89,9.25]}],&quot;Fields&quot;:[{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;,&quot;Box&quot;:[331.7866,232.9161,48.4846,15.2108]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;,&quot;Box&quot;:[332.7373,502.9086,53.238,15.2108]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;,&quot;Box&quot;:[334.1649,337.441,50.2339,13.1045]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;,&quot;Box&quot;:[334.1649,388.221,26.755,12.5585]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;,&quot;Box&quot;:[333.6189,424.2584,74.8049,14.1965]}],&quot;Tables&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;,&quot;Headers&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]}],&quot;Cells&quot;:[{&quot;Row&quot;:0,&quot;Column&quot;:0,&quot;Box&quot;:[331.2707,230.251,50.5554,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:1,&quot;Box&quot;:[331.2707,500.3231,57.2074,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:2,&quot;Box&quot;:[331.2707,334.0225,53.1486,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:3,&quot;Box&quot;:[331.2707,387.1711,30.6669,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:4,&quot;Box&quot;:[331.2707,417.838,82.4851,19.3819]}]}]}],&quot;AnchorBasedConfiguration&quot;:{&quot;AnchorBasedFieldConfiguration&quot;:[]}}]" Timeout="100000">
-                    <p5:FormExtractor.DocumentBounds>
-                      <InArgument x:TypeArguments="p6:ResultsDocumentBounds">
-                        <DelegateArgumentValue x:TypeArguments="p6:ResultsDocumentBounds">
-                          <DelegateInArgument x:TypeArguments="p6:ResultsDocumentBounds" Name="DocumentBounds" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.DocumentBounds>
-                    <p5:FormExtractor.DocumentObjectModel>
-                      <InArgument x:TypeArguments="p4:Document">
-                        <DelegateArgumentValue x:TypeArguments="p4:Document">
-                          <DelegateInArgument x:TypeArguments="p4:Document" Name="DocumentObjectModel" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.DocumentObjectModel>
-                    <p5:FormExtractor.DocumentPath>
-                      <InArgument x:TypeArguments="x:String">
-                        <DelegateArgumentValue x:TypeArguments="x:String">
-                          <DelegateInArgument x:TypeArguments="x:String" Name="DocumentPath" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.DocumentPath>
-                    <p5:FormExtractor.DocumentText>
-                      <InArgument x:TypeArguments="x:String">
-                        <DelegateArgumentValue x:TypeArguments="x:String">
-                          <DelegateInArgument x:TypeArguments="x:String" Name="DocumentText" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.DocumentText>
-                    <p5:FormExtractor.ExtractorDocumentType>
-                      <InArgument x:TypeArguments="p7:ExtractorDocumentType">
-                        <DelegateArgumentValue x:TypeArguments="p7:ExtractorDocumentType">
-                          <DelegateInArgument x:TypeArguments="p7:ExtractorDocumentType" Name="ExtractorDocumentType" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.ExtractorDocumentType>
-                    <p5:FormExtractor.ExtractorResult>
-                      <OutArgument x:TypeArguments="p7:ExtractorResult">
-                        <DelegateArgumentReference x:TypeArguments="p7:ExtractorResult">
-                          <DelegateOutArgument x:TypeArguments="p7:ExtractorResult" Name="ExtractorResult" />
-                        </DelegateArgumentReference>
-                      </OutArgument>
-                    </p5:FormExtractor.ExtractorResult>
-                    <p5:FormExtractor.PredictionId>
-                      <InArgument x:TypeArguments="x:String">
-                        <DelegateArgumentValue x:TypeArguments="x:String">
-                          <DelegateInArgument x:TypeArguments="x:String" Name="PredictionId" />
-                        </DelegateArgumentValue>
-                      </InArgument>
-                    </p5:FormExtractor.PredictionId>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                  </p5:FormExtractor>
-                </p5:DataExtractionScope.Extractors>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </p5:DataExtractionScope>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,54" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Extraction des données&quot;]">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </ui:LogMessage>
-              <p5:ExportExtractionResults sap2010:Annotation.AnnotationText="Export des résultats d'extraction sous forme de data set. &#xA;Un date set contient plusieurs types de données dont des data tables qui contiennent les infos principales" DataSet="[dtResult]" DisplayName="6 - Export Extraction Results" ExtractionResult="[extractionResults]" sap:VirtualizedContainerService.HintSize="510,260.6666666666667" sap2010:WorkflowViewState.IdRef="ExportExtractionResults_2" IncludeConfidence="False" IncludeOCRConfidence="False">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </p5:ExportExtractionResults>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Exportation des résultats&quot;]" />
-              <uasc:ExistsInCollection x:TypeArguments="x:String" Index="{x:Null}" sap2010:Annotation.AnnotationText="On vérifie si le type de document traité est compris dans l'ensemble des clefs d'un dictionnaire (clef-valeur)" Collection="[documentTypes.Keys]" DisplayName="Exists in collection" Exists="[typeExist]" sap:VirtualizedContainerService.HintSize="510,190" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_2" Item="[strDocType]">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </uasc:ExistsInCollection>
-              <If sap2010:Annotation.AnnotationText="Si le type existe, on incrémente son nombre d'apparition, sinon on initialise à 0" Condition="[typeExist]" DisplayName="If Type Exist" sap:VirtualizedContainerService.HintSize="510,355.3333333333333" sap2010:WorkflowViewState.IdRef="If_1">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Classification fichier&quot;]" />
+              <If Condition="[classificationResults.Length &gt; 0]" sap:VirtualizedContainerService.HintSize="586,3065.3333333333335" sap2010:WorkflowViewState.IdRef="If_4">
                 <If.Then>
-                  <Sequence sap:VirtualizedContainerService.HintSize="476,172.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                  <Sequence sap:VirtualizedContainerService.HintSize="552,2678" sap2010:WorkflowViewState.IdRef="Sequence_27">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <Assign sap:VirtualizedContainerService.HintSize="434,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign sap2010:Annotation.AnnotationText="Enregistrement du type de document" DisplayName="3.1 - Getting the document Type" sap:VirtualizedContainerService.HintSize="510,116" sap2010:WorkflowViewState.IdRef="Assign_2">
                       <Assign.To>
-                        <OutArgument x:TypeArguments="x:Int32">[documentTypes(strDocType)]</OutArgument>
+                        <OutArgument x:TypeArguments="x:String">[strDocType]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
-                        <InArgument x:TypeArguments="x:Int32">[documentTypes(strDocType) + 1]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[classificationResults(0).DocumentTypeId.Split(".").Last]</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Récupération du type de document&quot;]" />
+                    <p5:DataExtractionScope DocumentTypeId="{x:Null}" sap2010:Annotation.AnnotationText="Extraction des données en se basant sur la taxonomie et le module d'extraction (ici un Form Extraction)" ClassificationResult="[classificationResults(0)]" DisplayName="4 - Data Extraction Scope" DocumentObjectModel="[DOM]" DocumentPath="[CurrentFile.ToString]" DocumentText="[strDocText]" ExtractionResult="[extractionResults]" FormatValuesIfPossible="True" sap:VirtualizedContainerService.HintSize="510,148.66666666666666" sap2010:WorkflowViewState.IdRef="DataExtractionScope_2" Taxonomy="[taxonomy]" TaxonomyConfiguration="{}{&quot;TaxonomyMappings&quot;:{&quot;UIf6be7d14856343f3be017072f2930458&quot;:{&quot;DocumentTypeMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;:{&quot;FieldMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Jour&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Jour&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true}},&quot;ExtractorDocumentTypeId&quot;:null},&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;:{&quot;FieldMappings&quot;:{&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:false},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true},&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;:{&quot;OriginalTaxonomyFieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;,&quot;ExtractorTaxonomyFieldId&quot;:null,&quot;ShouldExtract&quot;:true}},&quot;ExtractorDocumentTypeId&quot;:null}}}},&quot;ExtractorMinimumConfidence&quot;:{&quot;UIf6be7d14856343f3be017072f2930458&quot;:&quot;0&quot;},&quot;ExtractorsAliases&quot;:{},&quot;DocumentTypeOptionsByExtractor&quot;:{}}">
+                      <p5:DataExtractionScope.Extractors>
+                        <p5:FormExtractor SerializedSignatureFields="{x:Null}" ApiKey="+Llg9ZV3ter+dqJ60Igil2bXorirr6E8++TuPR3dyGuPqhtRW7NDzmRe3d5n+nOZm24cbmqUJ7xclom7fsTrww==" DisplayName="Form Extractor" Endpoint="https://du.uipath.com/svc/formextractor" sap:VirtualizedContainerService.HintSize="234,166" sap2010:WorkflowViewState.IdRef="FormExtractor_2" MinOverlapPercentage="65" PersistenceId="UIf6be7d14856343f3be017072f2930458" SerializedSettings="{}{}" SerializedTemplates="[{&quot;DocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE&quot;,&quot;FormId&quot;:&quot;1b19fc04&quot;,&quot;FormName&quot;:&quot;domaliance&quot;,&quot;OriginalFileExtension&quot;:&quot;pdf&quot;,&quot;Pages&quot;:[{&quot;Page&quot;:0,&quot;Size&quot;:[0.0,0.0,595.0,841.0],&quot;SkewAngle&quot;:0.0,&quot;Evidence&quot;:[{&quot;Text&quot;:&quot;INTERVENTION&quot;,&quot;Box&quot;:[77.99,299.45,126.11,20.04]},{&quot;Text&quot;:&quot;TELEGESTION&quot;,&quot;Box&quot;:[77.99,430.15,111.78,20.04]},{&quot;Text&quot;:&quot;DomAliance&quot;,&quot;Box&quot;:[52.47,36.36,70.5,14.04]},{&quot;Text&quot;:&quot;Cergy&quot;,&quot;Box&quot;:[52.47,110.02,32.68,14.04]},{&quot;Text&quot;:&quot;CERGY&quot;,&quot;Box&quot;:[97.55,58.56,21.82,8.04]}],&quot;Fields&quot;:[],&quot;Tables&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table&quot;,&quot;Headers&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.Jour&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureDebut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMALIANCE.Table.HeureFin&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]}],&quot;Cells&quot;:[{&quot;Row&quot;:0,&quot;Column&quot;:0,&quot;Box&quot;:[283.2658,117.83,60.0,36.0]},{&quot;Row&quot;:0,&quot;Column&quot;:1,&quot;Box&quot;:[283.2658,269.83,46.0,36.0]},{&quot;Row&quot;:0,&quot;Column&quot;:2,&quot;Box&quot;:[283.2658,315.83,46.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:0,&quot;Box&quot;:[319.2658,117.83,60.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:1,&quot;Box&quot;:[319.2658,269.83,46.0,36.0]},{&quot;Row&quot;:1,&quot;Column&quot;:2,&quot;Box&quot;:[319.2658,315.83,46.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:0,&quot;Box&quot;:[355.2658,117.83,60.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:1,&quot;Box&quot;:[355.2658,269.83,46.0,36.0]},{&quot;Row&quot;:2,&quot;Column&quot;:2,&quot;Box&quot;:[355.2658,315.83,46.0,36.0]},{&quot;Row&quot;:3,&quot;Column&quot;:0,&quot;Box&quot;:[391.2658,117.83,60.0,29.0]},{&quot;Row&quot;:3,&quot;Column&quot;:1,&quot;Box&quot;:[391.2658,269.83,46.0,29.0]},{&quot;Row&quot;:3,&quot;Column&quot;:2,&quot;Box&quot;:[391.2658,315.83,46.0,29.0]}]}]}],&quot;AnchorBasedConfiguration&quot;:{&quot;AnchorBasedFieldConfiguration&quot;:[]}},{&quot;DocumentTypeId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL&quot;,&quot;FormId&quot;:&quot;5f515c03&quot;,&quot;FormName&quot;:&quot;domatel&quot;,&quot;OriginalFileExtension&quot;:&quot;pdf&quot;,&quot;Pages&quot;:[{&quot;Page&quot;:0,&quot;Size&quot;:[0.0,0.0,842.0,595.0],&quot;SkewAngle&quot;:0.0,&quot;Evidence&quot;:[{&quot;Text&quot;:&quot;Etat&quot;,&quot;Box&quot;:[20.98,30.0,21.35,13.87]},{&quot;Text&quot;:&quot;liste&quot;,&quot;Box&quot;:[20.98,54.68,21.34,13.87]},{&quot;Text&quot;:&quot;des&quot;,&quot;Box&quot;:[20.98,79.36,19.34,13.87]},{&quot;Text&quot;:&quot;intervenants&quot;,&quot;Box&quot;:[20.98,102.04,65.36,13.87]},{&quot;Text&quot;:&quot;par&quot;,&quot;Box&quot;:[20.98,170.74,17.34,13.87]},{&quot;Text&quot;:&quot;bénéficiaire&quot;,&quot;Box&quot;:[20.98,191.41,61.36,13.87]},{&quot;Text&quot;:&quot;CCAS&quot;,&quot;Box&quot;:[42.97,59.0,33.34,13.87]},{&quot;Text&quot;:&quot;de&quot;,&quot;Box&quot;:[42.97,95.67,13.34,13.87]},{&quot;Text&quot;:&quot;la&quot;,&quot;Box&quot;:[42.97,112.35,9.34,13.87]},{&quot;Text&quot;:&quot;ville&quot;,&quot;Box&quot;:[42.97,125.02,20.66,13.87]},{&quot;Text&quot;:&quot;de&quot;,&quot;Box&quot;:[42.97,149.02,13.34,13.87]},{&quot;Text&quot;:&quot;Paris&quot;,&quot;Box&quot;:[42.97,165.7,27.34,13.87]},{&quot;Text&quot;:&quot;5&quot;,&quot;Box&quot;:[60.97,60.0,5.56,11.56]},{&quot;Text&quot;:&quot;boulevard&quot;,&quot;Box&quot;:[60.97,68.34,43.91,11.56]},{&quot;Text&quot;:&quot;Diderot&quot;,&quot;Box&quot;:[60.97,115.03,32.23,11.56]},{&quot;Text&quot;:&quot;Secteur&quot;,&quot;Box&quot;:[166.74,620.0,31.01,10.4]},{&quot;Text&quot;:&quot;Nord-Est&quot;,&quot;Box&quot;:[166.74,658.52,35.51,10.4]},{&quot;Text&quot;:&quot;CAUTO&quot;,&quot;Box&quot;:[522.98,30.0,28.0,9.25]},{&quot;Text&quot;:&quot;UNONREC&quot;,&quot;Box&quot;:[534.98,30.0,40.44,9.25]},{&quot;Text&quot;:&quot;APPFIN&quot;,&quot;Box&quot;:[522.98,350.0,28.9,9.25]},{&quot;Text&quot;:&quot;ERRIND&quot;,&quot;Box&quot;:[534.98,350.0,30.66,9.25]},{&quot;Text&quot;:&quot;DMINI&quot;,&quot;Box&quot;:[546.98,30.0,22.66,9.25]},{&quot;Text&quot;:&quot;ERR&quot;,&quot;Box&quot;:[546.98,350.0,16.89,9.25]}],&quot;Fields&quot;:[{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.CodeFinanceur&quot;,&quot;Box&quot;:[331.7866,232.9161,48.4846,15.2108]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.DureeTotalBrut&quot;,&quot;Box&quot;:[332.7373,502.9086,53.238,15.2108]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Date&quot;,&quot;Box&quot;:[334.1649,337.441,50.2339,13.1045]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureDebut&quot;,&quot;Box&quot;:[334.1649,388.221,26.755,12.5585]},{&quot;Field&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.HeureFin&quot;,&quot;Box&quot;:[333.6189,424.2584,74.8049,14.1965]}],&quot;Tables&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table&quot;,&quot;Headers&quot;:[{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.CodeFinanceur&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.DureeTotalBrut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.Date&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureDebut&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]},{&quot;FieldId&quot;:&quot;CNAV.Recouvrement.Factures-DOMATEL.Table.HeureFin&quot;,&quot;Box&quot;:[0.0,0.0,0.0,0.0]}],&quot;Cells&quot;:[{&quot;Row&quot;:0,&quot;Column&quot;:0,&quot;Box&quot;:[331.2707,230.251,50.5554,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:1,&quot;Box&quot;:[331.2707,500.3231,57.2074,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:2,&quot;Box&quot;:[331.2707,334.0225,53.1486,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:3,&quot;Box&quot;:[331.2707,387.1711,30.6669,19.3819]},{&quot;Row&quot;:0,&quot;Column&quot;:4,&quot;Box&quot;:[331.2707,417.838,82.4851,19.3819]}]}]}],&quot;AnchorBasedConfiguration&quot;:{&quot;AnchorBasedFieldConfiguration&quot;:[]}}]" Timeout="100000">
+                          <p5:FormExtractor.DocumentBounds>
+                            <InArgument x:TypeArguments="p6:ResultsDocumentBounds">
+                              <DelegateArgumentValue x:TypeArguments="p6:ResultsDocumentBounds">
+                                <DelegateInArgument x:TypeArguments="p6:ResultsDocumentBounds" Name="DocumentBounds" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.DocumentBounds>
+                          <p5:FormExtractor.DocumentObjectModel>
+                            <InArgument x:TypeArguments="p4:Document">
+                              <DelegateArgumentValue x:TypeArguments="p4:Document">
+                                <DelegateInArgument x:TypeArguments="p4:Document" Name="DocumentObjectModel" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.DocumentObjectModel>
+                          <p5:FormExtractor.DocumentPath>
+                            <InArgument x:TypeArguments="x:String">
+                              <DelegateArgumentValue x:TypeArguments="x:String">
+                                <DelegateInArgument x:TypeArguments="x:String" Name="DocumentPath" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.DocumentPath>
+                          <p5:FormExtractor.DocumentText>
+                            <InArgument x:TypeArguments="x:String">
+                              <DelegateArgumentValue x:TypeArguments="x:String">
+                                <DelegateInArgument x:TypeArguments="x:String" Name="DocumentText" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.DocumentText>
+                          <p5:FormExtractor.ExtractorDocumentType>
+                            <InArgument x:TypeArguments="p7:ExtractorDocumentType">
+                              <DelegateArgumentValue x:TypeArguments="p7:ExtractorDocumentType">
+                                <DelegateInArgument x:TypeArguments="p7:ExtractorDocumentType" Name="ExtractorDocumentType" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.ExtractorDocumentType>
+                          <p5:FormExtractor.ExtractorResult>
+                            <OutArgument x:TypeArguments="p7:ExtractorResult">
+                              <DelegateArgumentReference x:TypeArguments="p7:ExtractorResult">
+                                <DelegateOutArgument x:TypeArguments="p7:ExtractorResult" Name="ExtractorResult" />
+                              </DelegateArgumentReference>
+                            </OutArgument>
+                          </p5:FormExtractor.ExtractorResult>
+                          <p5:FormExtractor.PredictionId>
+                            <InArgument x:TypeArguments="x:String">
+                              <DelegateArgumentValue x:TypeArguments="x:String">
+                                <DelegateInArgument x:TypeArguments="x:String" Name="PredictionId" />
+                              </DelegateArgumentValue>
+                            </InArgument>
+                          </p5:FormExtractor.PredictionId>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </p5:FormExtractor>
+                      </p5:DataExtractionScope.Extractors>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </p5:DataExtractionScope>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Extraction des données&quot;]">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:LogMessage>
+                    <p5:ExportExtractionResults sap2010:Annotation.AnnotationText="Export des résultats d'extraction sous forme de data set. &#xA;Un date set contient plusieurs types de données dont des data tables qui contiennent les infos principales" DataSet="[dtResult]" DisplayName="6 - Export Extraction Results" ExtractionResult="[extractionResults]" sap:VirtualizedContainerService.HintSize="510,260.6666666666667" sap2010:WorkflowViewState.IdRef="ExportExtractionResults_2" IncludeConfidence="False" IncludeOCRConfidence="False">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </p5:ExportExtractionResults>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="510,96" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Exportation des résultats&quot;]" />
+                    <uasc:ExistsInCollection x:TypeArguments="x:String" Index="{x:Null}" sap2010:Annotation.AnnotationText="On vérifie si le type de document traité est compris dans l'ensemble des clefs d'un dictionnaire (clef-valeur)" Collection="[documentTypes.Keys]" DisplayName="Exists in collection" Exists="[typeExist]" sap:VirtualizedContainerService.HintSize="510,190" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_2" Item="[strDocType]">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </uasc:ExistsInCollection>
+                    <If sap2010:Annotation.AnnotationText="Si le type existe, on incrémente son nombre d'apparition, sinon on initialise à 0" Condition="[typeExist]" DisplayName="If Type Exist" sap:VirtualizedContainerService.HintSize="510,355.3333333333333" sap2010:WorkflowViewState.IdRef="If_1">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="476,172.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_3">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[documentTypes(strDocType)]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[documentTypes(strDocType) + 1]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence sap:VirtualizedContainerService.HintSize="476,172.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_4">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[documentTypes(strDocType)]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                    <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Scope Excel pour la création d'un fichier Excel récapitulatif" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="510,786.6666666666666" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_5" InstanceCachePeriod="3000" Visible="False" WorkbookPath="Output.xlsx">
+                      <ui:ExcelApplicationScope.Body>
+                        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                          </ActivityAction.Argument>
+                          <Sequence sap:VirtualizedContainerService.HintSize="452,646" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If sap2010:Annotation.AnnotationText="Si le document a déjà été traité, le taux d'apparition de son type est supérieur à 0 donc on Append les nouvelles donnée au Workbook propre au type de document.&#xA;Sinon on utilise un Write Range pour inclure renseigner un Workbook propore au type traité en renseignant l'en-tête" Condition="[documentTypes(strDocType) &gt; 0]" sap:VirtualizedContainerService.HintSize="410,422.6666666666667" sap2010:WorkflowViewState.IdRef="If_2">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="376,175.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:ExcelAppendRange DataTable="[dtResult.Tables(3)]" DisplayName="Append Range" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="[strDocType]" />
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap:VirtualizedContainerService.HintSize="376,175.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:ExcelWriteRange AddHeaders="True" DataTable="[dtResult.Tables(3)]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_3" SheetName="[strDocType]" StartingCell="A1" />
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,96" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Ajout au fichier Excel&quot;]" />
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ExcelApplicationScope.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:ExcelApplicationScope>
+                    <Assign sap:VirtualizedContainerService.HintSize="510,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_6">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[numFichier]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[numFichier+1]</InArgument>
                       </Assign.Value>
                     </Assign>
                   </Sequence>
                 </If.Then>
                 <If.Else>
-                  <Sequence sap:VirtualizedContainerService.HintSize="476,172.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                  <Sequence sap:VirtualizedContainerService.HintSize="300,235.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_28">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <Assign sap:VirtualizedContainerService.HintSize="434,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_4">
-                      <Assign.To>
-                        <OutArgument x:TypeArguments="x:Int32">[documentTypes(strDocType)]</OutArgument>
-                      </Assign.To>
-                      <Assign.Value>
-                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
-                      </Assign.Value>
-                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="258,54" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Error" Message="[&quot;Erreur fichier : type de document inconnu&quot;]">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:LogMessage>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{CurrentFile.ToString}]" DataTable="[dtErrorFile]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="258,54" sap2010:WorkflowViewState.IdRef="AddDataRow_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:AddDataRow>
                   </Sequence>
                 </If.Else>
               </If>
-              <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Scope Excel pour la création d'un fichier Excel récapitulatif" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="510,826.6666666666666" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_5" InstanceCachePeriod="3000" WorkbookPath="Output.xlsx">
-                <ui:ExcelApplicationScope.Body>
-                  <ActivityAction x:TypeArguments="ui:WorkbookApplication">
-                    <ActivityAction.Argument>
-                      <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
-                    </ActivityAction.Argument>
-                    <Sequence sap:VirtualizedContainerService.HintSize="452,646" sap2010:WorkflowViewState.IdRef="Sequence_26">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <If sap2010:Annotation.AnnotationText="Si le document a déjà été traité, le taux d'apparition de son type est supérieur à 0 donc on Append les nouvelles donnée au Workbook propre au type de document.&#xA;Sinon on utilise un Write Range pour inclure renseigner un Workbook propore au type traité en renseignant l'en-tête" Condition="[documentTypes(strDocType) &gt; 0]" sap:VirtualizedContainerService.HintSize="410,422.6666666666667" sap2010:WorkflowViewState.IdRef="If_2">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="376,175.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_19">
-                            <sap:WorkflowViewStateService.ViewState>
-                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              </scg:Dictionary>
-                            </sap:WorkflowViewStateService.ViewState>
-                            <ui:ExcelAppendRange DataTable="[dtResult.Tables(3)]" DisplayName="Append Range" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="[strDocType]" />
-                          </Sequence>
-                        </If.Then>
-                        <If.Else>
-                          <Sequence sap:VirtualizedContainerService.HintSize="376,175.33333333333334" sap2010:WorkflowViewState.IdRef="Sequence_20">
-                            <sap:WorkflowViewStateService.ViewState>
-                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              </scg:Dictionary>
-                            </sap:WorkflowViewStateService.ViewState>
-                            <ui:ExcelWriteRange AddHeaders="True" DataTable="[dtResult.Tables(3)]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_3" SheetName="[strDocType]" StartingCell="A1" />
-                          </Sequence>
-                        </If.Else>
-                      </If>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="410,96" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Ajout au fichier Excel&quot;]" />
-                    </Sequence>
-                  </ActivityAction>
-                </ui:ExcelApplicationScope.Body>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </ui:ExcelApplicationScope>
-              <Assign sap:VirtualizedContainerService.HintSize="510,85.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_5">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:Int32">[numFichier]</OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:Int32">[numFichier+1]</InArgument>
-                </Assign.Value>
-              </Assign>
             </Sequence>
           </ActivityAction>
         </ui:ForEachFileX.Body>
@@ -499,17 +580,32 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:ForEachFileX>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="586,96" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Fin de traitement.&quot;]" />
-      <ui:FileExistsX sap2010:Annotation.AnnotationText="On vérifie si le fichier excel existe" DisplayName="File Exists" Exists="[fileExist]" sap:VirtualizedContainerService.HintSize="586,167.33333333333334" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="Output.xlsx">
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="662,96" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot; &quot;]">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
+      </ui:LogMessage>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="662,96" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[&quot;Fin de traitement : &quot; + numFichier.ToString +&quot;/&quot; + Directory.GetFiles(strDocPath).Count.ToString +&quot; fichiers traités.&quot;]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:LogMessage>
+      <ui:FileExistsX sap2010:Annotation.AnnotationText="On vérifie si le fichier excel existe" DisplayName="File Exists" Exists="[fileExist]" sap:VirtualizedContainerService.HintSize="662,99.33333333333333" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="Output.xlsx">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
       </ui:FileExistsX>
-      <If sap2010:Annotation.AnnotationText="Si le fichier existe, enfin on ouvre le document" Condition="[fileExist]" sap:VirtualizedContainerService.HintSize="586,498.6666666666667" sap2010:WorkflowViewState.IdRef="If_3">
+      <If sap2010:Annotation.AnnotationText="Si le fichier existe, enfin on ouvre le document" Condition="[fileExist]" sap:VirtualizedContainerService.HintSize="662,562.6666666666666" sap2010:WorkflowViewState.IdRef="If_3">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -518,13 +614,42 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
         <If.Then>
-          <Sequence sap:VirtualizedContainerService.HintSize="476,316" sap2010:WorkflowViewState.IdRef="Sequence_23">
+          <Sequence sap:VirtualizedContainerService.HintSize="329.3333333333333,235.33333333333337" sap2010:WorkflowViewState.IdRef="Sequence_23">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:OpenApplication ApplicationWindow="{x:Null}" TimeoutMS="{x:Null}" WorkingDirectory="{x:Null}" Arguments="Output.xlsx" DisplayName="Open Application 'excel.exe Output'" FileName="C:\Program Files\Microsoft Office\root\Office16\excel.exe" sap:VirtualizedContainerService.HintSize="434,228.66666666666666" sap2010:WorkflowViewState.IdRef="OpenApplication_1" InformativeScreenshot="fa85016ab6330c0f852628412eb781e1" Selector="&lt;wnd app='excel.exe' /&gt;">
+            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="287.3333333333333,54" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_7" InstanceCachePeriod="3000" WorkbookPath="Output.xlsx">
+              <ui:ExcelApplicationScope.Body>
+                <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,206" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:ExcelWriteRange AddHeaders="True" sap2010:Annotation.AnnotationText="On rajoute les infos sur les fichiers non traités" DataTable="[dtErrorFile]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,118.66666666666667" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_5" SheetName="Fichiers Non Traités" StartingCell="A1">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:ExcelWriteRange>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ExcelApplicationScope.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ExcelApplicationScope>
+            <ui:OpenApplication ApplicationWindow="{x:Null}" TimeoutMS="{x:Null}" WorkingDirectory="{x:Null}" Arguments="Output.xlsx" DisplayName="Open Application 'excel.exe Output'" FileName="C:\Program Files\Microsoft Office\root\Office16\excel.exe" sap:VirtualizedContainerService.HintSize="287.3333333333333,54" sap2010:WorkflowViewState.IdRef="OpenApplication_1" InformativeScreenshot="fa85016ab6330c0f852628412eb781e1" Selector="&lt;wnd app='excel.exe' /&gt;">
               <ui:OpenApplication.Body>
                 <ActivityAction x:TypeArguments="x:Object">
                   <ActivityAction.Argument>
@@ -539,6 +664,12 @@
                   </Sequence>
                 </ActivityAction>
               </ui:OpenApplication.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:OpenApplication>
           </Sequence>
         </If.Then>
